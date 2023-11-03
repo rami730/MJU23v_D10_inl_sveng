@@ -97,25 +97,13 @@
                 {
                     if (argument.Length == 2)
                     {
-                        foreach(SweEngGloss gloss in dictionary) //FIXME: 'System.NullReferenceException' if nothing loaded
-                        {
-                            if (gloss.word_swe == argument[1])
-                                Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == argument[1])
-                                Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
-                        }
+                        TranslateWord(argument[1]);
                     }
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word to be translated: ");
                         string wordToTranslate = Console.ReadLine();
-                        foreach (SweEngGloss gloss in dictionary) //FIXME: 'System.NullReferenceException' if nothing loaded
-                        {
-                            if (gloss.word_swe == wordToTranslate)
-                                Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == wordToTranslate)
-                                Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
-                        }
+                        TranslateWord(wordToTranslate);
                     }
                 }
                 else
@@ -124,6 +112,17 @@
                 }
             }
             while (command != "quit");
+        }
+
+        private static void TranslateWord(string argument)
+        {
+            foreach (SweEngGloss gloss in dictionary) //FIXME: 'System.NullReferenceException' if nothing loaded
+            {
+                if (gloss.word_swe == argument)
+                    Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
+                if (gloss.word_eng == argument)
+                    Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
+            }
         }
 
         private static void SwedishAndEnglishInput(out string swedishWordInput, out string englishWordInput)
