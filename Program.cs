@@ -71,26 +71,13 @@
                 {
                     if (argument.Length == 3)
                     {
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) { //FIXME: 'System.NullReferenceException' if nothing loaded
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
+                        DeleteWord(argument[1], argument[2]);
                     }
                     else if (argument.Length == 1)
                     {
                         string swedishWordInput, englishWordInput;
                         SwedishAndEnglishInput(out swedishWordInput, out englishWordInput);
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) //FIXME: 'System.NullReferenceException' if nothing loaded
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == swedishWordInput && gloss.word_eng == englishWordInput)
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index); //FIXME: 'System.ArgumentOutOfRangeException' when trying to delete non exsisting word
+                        DeleteWord(swedishWordInput, englishWordInput);
                     }
                 }
                 else if (command == "translate")
@@ -114,6 +101,18 @@
             while (command != "quit");
         }
 
+        private static void DeleteWord(string swedishWordInput, string englishWordInput)
+        {
+            int index = -1;
+            for (int i = 0; i < dictionary.Count; i++) //FIXME: 'System.NullReferenceException' if nothing loaded
+            {
+                SweEngGloss gloss = dictionary[i];
+                if (gloss.word_swe == swedishWordInput && gloss.word_eng == englishWordInput)
+                    index = i;
+            }
+            dictionary.RemoveAt(index); //FIXME: 'System.ArgumentOutOfRangeException' when trying to delete non exsisting word
+        }
+
         private static void TranslateWord(string argument)
         {
             foreach (SweEngGloss gloss in dictionary) //FIXME: 'System.NullReferenceException' if nothing loaded
@@ -129,7 +128,7 @@
         {
             Console.WriteLine("Write word in Swedish: ");
             swedishWordInput = Console.ReadLine();
-            Console.Write("Write word in English: ");
+            Console.WriteLine("Write word in English: ");
             englishWordInput = Console.ReadLine();
         }
 
