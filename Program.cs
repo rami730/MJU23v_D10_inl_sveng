@@ -19,13 +19,14 @@
         static void Main(string[] args)
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
+            string command;
             Console.WriteLine("Welcome to the dictionary app!");
             Console.WriteLine("Type 'h' for help");
             do
             {
                 Console.Write("> ");
                 string[] argument = Console.ReadLine().Split();
-                string command = argument[0];
+                command = argument[0];
                 if (command == "quit")
                 {
                     Console.WriteLine("Goodbye!");
@@ -155,7 +156,7 @@
                     Console.WriteLine($"Unknown command: '{command}'");
                 }
             }
-            while (true);
+            while (command != "quit");
         }
     }
 }
