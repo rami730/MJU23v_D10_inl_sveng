@@ -49,23 +49,37 @@
                 }
                 else if (command == "list")
                 {
-                    foreach(SweEngGloss gloss in dictionary) //FIXME: 'System.NullReferenceException' if nothing loaded
+                    try
                     {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                        foreach (SweEngGloss gloss in dictionary)
+                        {
+                            Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                        }
+                    }
+                    catch (System.NullReferenceException) 
+                    {
+                        Console.WriteLine("No file loaded");
                     }
                 }
                 else if (command == "new")
                 {
-                    if (argument.Length == 3)
+                    try
                     {
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2])); //FIXME: 'System.NullReferenceException' if nothing loaded
+                        if (argument.Length == 3)
+                        {
+                            dictionary.Add(new SweEngGloss(argument[1], argument[2])); 
+                        }
+                        else if (argument.Length == 1)
+                        {
+                            string swedishWordInput, englishWordInput;
+                            SwedishAndEnglishInput(out swedishWordInput, out englishWordInput);
+                            dictionary.Add(new SweEngGloss(swedishWordInput, englishWordInput));
+                        }
                     }
-                    else if(argument.Length == 1)
+                    catch(System.NullReferenceException)
                     {
-                        string swedishWordInput, englishWordInput;
-                        SwedishAndEnglishInput(out swedishWordInput, out englishWordInput);
-                        dictionary.Add(new SweEngGloss(swedishWordInput, englishWordInput)); //FIXME: 'System.NullReferenceException' if nothing loaded
-                    }
+                        Console.WriteLine("No file loaded");
+                            }
                 }
                 else if (command == "delete")
                 {
