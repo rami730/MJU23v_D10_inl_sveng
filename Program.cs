@@ -19,6 +19,7 @@
         static void Main(string[] args)
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
+            string defaultPath = "..\\..\\..\\dict\\";
             string command;
             Console.WriteLine("Welcome to the dictionary app!");
             Console.WriteLine("Type 'h' for help");
@@ -39,31 +40,11 @@
                 {
                     if(argument.Length == 2)
                     {
-                        using (StreamReader sr = new StreamReader(argument[1])) // FIXME: 'System.IO.FileNotFoundException' when inputting non existing file name
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
+                        LoadDictionary(defaultPath + argument[1]);
                     }
                     else if(argument.Length == 1)
                     {
-                        using (StreamReader sr = new StreamReader(defaultFile))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
+                        LoadDictionary(defaultFile);
                     }
                 }
                 else if (command == "list")
@@ -147,6 +128,21 @@
                 }
             }
             while (command != "quit");
+        }
+
+        private static void LoadDictionary(string argument)
+        {
+            using (StreamReader sr = new StreamReader(argument)) // FIXME: 'System.IO.FileNotFoundException' when inputting non existing file name
+            {
+                dictionary = new List<SweEngGloss>(); // Empty it!
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    SweEngGloss gloss = new SweEngGloss(line);
+                    dictionary.Add(gloss);
+                    line = sr.ReadLine();
+                }
+            }
         }
 
         private static void HelpPrompt()
