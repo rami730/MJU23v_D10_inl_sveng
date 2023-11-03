@@ -91,10 +91,10 @@
                     else if(argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();
+                        string swedishWordInput = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(s, e)); //FIXME: 'System.NullReferenceException' if nothing loaded
+                        string englishWordInput = Console.ReadLine();
+                        dictionary.Add(new SweEngGloss(swedishWordInput, englishWordInput)); //FIXME: 'System.NullReferenceException' if nothing loaded
                     }
                 }
                 else if (command == "delete")
@@ -112,14 +112,14 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();
+                        string swedishWordInput = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();
+                        string englishWordInput = Console.ReadLine();
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++) //FIXME: 'System.NullReferenceException' if nothing loaded
                         {
                             SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == s && gloss.word_eng == e)
+                            if (gloss.word_swe == swedishWordInput && gloss.word_eng == englishWordInput)
                                 index = i;
                         }
                         dictionary.RemoveAt(index); //FIXME: 'System.ArgumentOutOfRangeException' when trying to delete non exsisting word
@@ -140,12 +140,12 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word to be translated: ");
-                        string s = Console.ReadLine();
+                        string wordToTranslate = Console.ReadLine();
                         foreach (SweEngGloss gloss in dictionary) //FIXME: 'System.NullReferenceException' if nothing loaded
                         {
-                            if (gloss.word_swe == s)
+                            if (gloss.word_swe == wordToTranslate)
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == s)
+                            if (gloss.word_eng == wordToTranslate)
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }
                     }
