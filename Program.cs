@@ -143,12 +143,18 @@
 
         private static void TranslateWord(string argument)
         {
-            foreach (SweEngGloss gloss in dictionary) //FIXME: 'System.NullReferenceException' if nothing loaded
+            try
             {
-                if (gloss.word_swe == argument)
-                    Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                if (gloss.word_eng == argument)
-                    Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
+                foreach (SweEngGloss gloss in dictionary) 
+                {
+                    if (gloss.word_swe == argument)
+                        Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
+                    if (gloss.word_eng == argument)
+                        Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
+                }
+            }catch(System.NullReferenceException)
+            {
+                Console.WriteLine("No file loaded");
             }
         }
 
@@ -162,16 +168,23 @@
 
         private static void LoadDictionary(string argument)
         {
-            using (StreamReader sr = new StreamReader(argument)) // FIXME: 'System.IO.FileNotFoundException' when inputting non existing file name
+            try
             {
-                dictionary = new List<SweEngGloss>(); // Empty it!
-                string line = sr.ReadLine();
-                while (line != null)
+                using (StreamReader sr = new StreamReader(argument))
                 {
-                    SweEngGloss gloss = new SweEngGloss(line);
-                    dictionary.Add(gloss);
-                    line = sr.ReadLine();
+                    dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        dictionary.Add(gloss);
+                        line = sr.ReadLine();
+                    }
                 }
+            }
+            catch(System.IO.FileNotFoundException)
+            {
+                Console.WriteLine("No file found");
             }
         }
 
