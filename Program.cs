@@ -33,17 +33,7 @@
                 }
                 else if (command == "h")
                 {
-                    Console.WriteLine("Here are the available commands:");
-                    Console.WriteLine(" load                    - loads the default dictionary");
-                    Console.WriteLine(" load 'filename'         - loads a dictionary with a filename");
-                    Console.WriteLine(" list                    - lists all the words in the current dictionary");
-                    Console.WriteLine(" new                     - allows you to input a swedish and an english word to the dictionary");
-                    Console.WriteLine(" new 'word1' 'word2'     - adds a swedish and an english word to the dictionary");
-                    Console.WriteLine(" delete                  - allows you to input a swedish and english word to delete");
-                    Console.WriteLine(" delete 'word1' word2    - deletes a swedish and an english from the dictionary");
-                    Console.WriteLine(" translate               - allows you to input a word to translate");
-                    Console.WriteLine(" translate 'word'        - translates a word to swedish or english");
-
+                    HelpPrompt();
                 }
                 else if (command == "load")
                 {
@@ -157,6 +147,20 @@
                 }
             }
             while (command != "quit");
+        }
+
+        private static void HelpPrompt()
+        {
+            Console.WriteLine("Here are the available commands:");
+            Console.WriteLine(" load                    - loads the default dictionary");
+            Console.WriteLine(" load 'filename'         - loads a dictionary with a filename");
+            Console.WriteLine(" list                    - lists all the words in the current dictionary");
+            Console.WriteLine(" new                     - allows you to input a swedish and an english word to the dictionary");
+            Console.WriteLine(" new 'word1' 'word2'     - adds a swedish and an english word to the dictionary");
+            Console.WriteLine(" delete                  - allows you to input a swedish and english word to delete");
+            Console.WriteLine(" delete 'word1' word2    - deletes a swedish and an english from the dictionary");
+            Console.WriteLine(" translate               - allows you to input a word to translate");
+            Console.WriteLine(" translate 'word'        - translates a word to swedish or english");
         }
     }
 }
