@@ -118,13 +118,27 @@
         private static void DeleteWord(string swedishWordInput, string englishWordInput)
         {
             int index = -1;
-            for (int i = 0; i < dictionary.Count; i++) //FIXME: 'System.NullReferenceException' if nothing loaded
+            try
             {
-                SweEngGloss gloss = dictionary[i];
-                if (gloss.word_swe == swedishWordInput && gloss.word_eng == englishWordInput)
-                    index = i;
+                for (int i = 0; i < dictionary.Count; i++) 
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == swedishWordInput && gloss.word_eng == englishWordInput)
+                        index = i;
+                }
+                try
+                {
+                    dictionary.RemoveAt(index);
+                }
+                catch (System.ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("Word not in the dictionary");
+                }
+            } 
+            catch (System.NullReferenceException)
+            {
+                Console.WriteLine("No file loaded");
             }
-            dictionary.RemoveAt(index); //FIXME: 'System.ArgumentOutOfRangeException' when trying to delete non exsisting word
         }
 
         private static void TranslateWord(string argument)
