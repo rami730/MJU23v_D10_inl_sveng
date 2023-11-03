@@ -62,10 +62,8 @@
                     }
                     else if(argument.Length == 1)
                     {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swedishWordInput = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string englishWordInput = Console.ReadLine();
+                        string swedishWordInput, englishWordInput;
+                        SwedishAndEnglishInput(out swedishWordInput, out englishWordInput);
                         dictionary.Add(new SweEngGloss(swedishWordInput, englishWordInput)); //FIXME: 'System.NullReferenceException' if nothing loaded
                     }
                 }
@@ -83,10 +81,8 @@
                     }
                     else if (argument.Length == 1)
                     {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swedishWordInput = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string englishWordInput = Console.ReadLine();
+                        string swedishWordInput, englishWordInput;
+                        SwedishAndEnglishInput(out swedishWordInput, out englishWordInput);
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++) //FIXME: 'System.NullReferenceException' if nothing loaded
                         {
@@ -128,6 +124,14 @@
                 }
             }
             while (command != "quit");
+        }
+
+        private static void SwedishAndEnglishInput(out string swedishWordInput, out string englishWordInput)
+        {
+            Console.WriteLine("Write word in Swedish: ");
+            swedishWordInput = Console.ReadLine();
+            Console.Write("Write word in English: ");
+            englishWordInput = Console.ReadLine();
         }
 
         private static void LoadDictionary(string argument)
